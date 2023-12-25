@@ -5,7 +5,6 @@ import de.fhws.fiw.fds.sutton.server.database.hibernate.dao.IDatabaseAccessObjec
 import de.fhws.fiw.fds.sutton.server.database.hibernate.results.SingleModelHibernateResult;
 
 public interface UserDaoHibernate extends IDatabaseAccessObjectHibernate<UserDB> {
-    // marker interface
 
     SingleModelHibernateResult<UserDB> readUserByUsername(final String username);
 }

@@ -23,7 +23,7 @@ public class GetSingleLocationOfPerson<R> extends AbstractGetRelationState<Locat
 
     @Override
     protected boolean clientKnowsCurrentModelState(AbstractModel modelFromDatabase) {
-        final String modelEtag = EtagGenerator.createEntityTag(modelFromDatabase);
+        final String modelEtag = EtagGenerator.createEtag(modelFromDatabase);
         return this.suttonRequest.clientKnowsCurrentModel(modelEtag);
     }
 

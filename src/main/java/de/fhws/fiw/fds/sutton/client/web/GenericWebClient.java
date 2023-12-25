@@ -43,7 +43,7 @@ import okhttp3.Response;
  */
 public class GenericWebClient<T extends AbstractClientModel> {
 
-    private static final String APPLICATION_JSON = jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+    private static final String APPLICATION_JSON = "application/json";
     private static final String HEADER_ACCEPT = HttpHeaders.ACCEPT;
 
     private final OkHttpClient client;

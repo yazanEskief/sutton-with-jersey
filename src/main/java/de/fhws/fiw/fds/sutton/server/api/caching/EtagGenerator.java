@@ -12,10 +12,6 @@ import java.security.MessageDigest;
  */
 public class EtagGenerator {
 
-    public static String createEntityTag(final Serializable object) {
-        return createEtag(object);
-    }
-
     /**
      * Creates an Etag for the given serializable object
      *
