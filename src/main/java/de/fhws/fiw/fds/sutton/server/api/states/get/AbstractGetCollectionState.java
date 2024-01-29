@@ -16,7 +16,7 @@
 
 package de.fhws.fiw.fds.sutton.server.api.states.get;
 
-import de.fhws.fiw.fds.sutton.server.api.hyperlinks.SuttonLinkProcessor;
+import de.fhws.fiw.fds.sutton.server.api.hyperlinks.processors.SuttonAnnotationsProcessor;
 import de.fhws.fiw.fds.sutton.server.api.queries.AbstractQuery;
 import de.fhws.fiw.fds.sutton.server.api.queries.PagingContext;
 import de.fhws.fiw.fds.sutton.server.api.serviceAdapters.responseAdapter.Status;
@@ -56,6 +56,8 @@ public abstract class AbstractGetCollectionState<T extends AbstractModel, R> ext
      * the collection {@link CollectionModelResult} of the requested resources to be sent to the client
      */
     protected CollectionModelResult<T> result;
+
+    protected SuttonAnnotationsProcessor suttonAnnotationsProcessor = new SuttonAnnotationsProcessor(this.uriInfo);
 
     protected AbstractGetCollectionState(final AbstractGetCollectionStateBuilder<T, R> builder) {
         super(builder);
@@ -118,11 +120,14 @@ public abstract class AbstractGetCollectionState<T extends AbstractModel, R> ext
      * Extending classes should use this method to set the body of the response.
      */
     protected void defineHttpResponseBody() {
-        SuttonLinkProcessor suttonLinkProcessor = new SuttonLinkProcessor(this.uriInfo);
-
+        addAnnotations();
         Collection<T> entityCollection = this.result.getResult();
-        entityCollection.forEach(suttonLinkProcessor::processEntity);
+        entityCollection.forEach(suttonAnnotationsProcessor::processSuttonAnnotations);
         this.suttonResponse.entity(entityCollection);
+    }
+
+    protected void addAnnotations() {
+
     }
 
     protected void defineHttpHeaderNumberOfResults() {
