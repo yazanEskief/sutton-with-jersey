@@ -11,14 +11,29 @@ import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJaxbJsonP
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The {@code JacksonConfig} class provides configuration for Jackson JSON and XML modules
+ * to be used with Jersey. It includes setup for Java time module serialization
+ * and deserialization, as well as enabling default typing and indentation for better readability.
+ */
 public class JacksonConfig {
 
+    /**
+     * Creates and configures a {@link JavaTimeModule} for Java time serialization.
+     *
+     * @return A configured {@link JavaTimeModule} instance.
+     */
     private JavaTimeModule javaTimeModule() {
         JavaTimeModule javaTimeModule = new JavaTimeModule();
         javaTimeModule.addSerializer(new LocalDateSerializer(DateTimeFormatter.ISO_LOCAL_DATE));
         return javaTimeModule;
     }
 
+    /**
+     * Creates and configures an {@link ObjectMapper} with modules for JSON processing.
+     *
+     * @return A configured {@link ObjectMapper} instance.
+     */
     public ObjectMapper objectMapper() {
         return new ObjectMapper()
                 .registerModule(javaTimeModule())
@@ -27,10 +42,20 @@ public class JacksonConfig {
                 .findAndRegisterModules();
     }
 
+    /**
+     * Creates a {@link JacksonJaxbJsonProvider} for JSON processing using the configured {@link ObjectMapper}.
+     *
+     * @return A new {@link JacksonJaxbJsonProvider} instance.
+     */
     public JacksonJaxbJsonProvider jsonProvider() {
         return new JacksonJaxbJsonProvider(objectMapper(), JacksonJaxbJsonProvider.DEFAULT_ANNOTATIONS);
     }
 
+    /**
+     * Creates a {@link JacksonXmlBindXMLProvider} for XML processing using a configured {@link XmlMapper}.
+     *
+     * @return A new {@link JacksonXmlBindXMLProvider} instance.
+     */
     public JacksonXmlBindXMLProvider xmlProvider() {
         XmlMapper xmlMapper = new XmlMapper();
         xmlMapper.registerModule(javaTimeModule());

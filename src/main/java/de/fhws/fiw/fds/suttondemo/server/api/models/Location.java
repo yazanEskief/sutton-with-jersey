@@ -23,11 +23,14 @@ public class Location extends AbstractModel {
 
     private LocalDate visitedOn;
 
-    @SecondarySelfLink(PrimaryResourceName = "persons")
+    @SecondarySelfLink(
+            primaryPathElement = "persons",
+            secondaryPathElement = "locations"
+    )
     private transient Link selfLinkOnSecond;
 
-    @SelfLink
-    private transient Link selfLinkPrimary;
+    @SelfLink(pathElement = "locations")
+    private transient Link selfLink;
 
     public Location() {
         // make JPA happy
@@ -48,12 +51,12 @@ public class Location extends AbstractModel {
         this.selfLinkOnSecond = selfLinkOnSecond;
     }
 
-    public Link getSelfLinkPrimary() {
-        return selfLinkPrimary;
+    public Link getSelfLink() {
+        return selfLink;
     }
 
-    public void setSelfLinkPrimary(final Link selfLinkPrimary) {
-        this.selfLinkPrimary = selfLinkPrimary;
+    public void setSelfLink(final Link selfLink) {
+        this.selfLink = selfLink;
     }
 
     public String getCityName() {

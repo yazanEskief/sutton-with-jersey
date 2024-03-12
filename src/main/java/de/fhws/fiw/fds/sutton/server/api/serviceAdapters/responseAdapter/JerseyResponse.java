@@ -6,10 +6,21 @@ import jakarta.ws.rs.core.*;
 import java.net.URI;
 import java.util.Collection;
 
+/**
+ * The {@link JerseyResponse} class is an implementation of the {@link SuttonResponse} interface
+ * for creating HTTP responses when using the Jersey framework with Sutton. It is a generic class
+ * that specifies the entity type to be sent to the client within the body of the HTTP response.
+ *
+ * @param <T> The type of the entity to be sent in the HTTP response body.
+ */
 public class JerseyResponse<T> implements SuttonResponse<Response, T> {
 
     private final Response.ResponseBuilder builder;
 
+    /**
+     * Constructs a {@code JerseyResponse} and initializes a {@link Response.ResponseBuilder}
+     * object to configure the HTTP response.
+     */
     public JerseyResponse() {
         this.builder = Response.ok();
     }
